@@ -1,6 +1,6 @@
 import { Component, Inject, Input } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { DIALOG_NEGATIVE_RESPONSE, DIALOG_POSITIVE_RESPONSE } from 'src/app/Constants';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { DIALOG_NEGATIVE_RESPONSE, DIALOG_POSITIVE_RESPONSE } from 'src/app/constants/Constants';
 
 @Component({
   selector: 'app-confirmation-dialog',

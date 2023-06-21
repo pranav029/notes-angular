@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Note } from 'src/app/data/Note';
-import { NoteService } from 'src/app/data/NoteService';
+import { NotesService } from 'src/app/data/NotesService';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +11,7 @@ export class HomeComponent implements OnInit {
   notes: Note[] = [];
   @Input() isAddNoteVisible:Boolean = false;
   @Output() toggleFab = new EventEmitter<Boolean>();
-  constructor(private noteService: NoteService) { }
+  constructor(private noteService: NotesService) { }
 
   ngOnInit(): void {
     this.fetch()

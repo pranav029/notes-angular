@@ -10,6 +10,8 @@ import { DataModule } from '../data/data.module';
 import { FormsModule } from '@angular/forms';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog'
+import { NotesService } from '../data/NotesService';
+import { NotesServiceImpl } from '../data/NotesServiceImpl';
 
 
 
@@ -31,6 +33,7 @@ import { MatDialogModule } from '@angular/material/dialog'
   ],
   exports: [
     HomeComponent
-  ]
+  ],
+  providers: [{ provide: NotesService, useExisting: NotesServiceImpl }]
 })
 export class PresentationModule { }

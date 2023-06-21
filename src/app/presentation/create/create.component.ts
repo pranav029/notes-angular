@@ -1,10 +1,9 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { Note } from 'src/app/data/Note';
-import { NoteService } from 'src/app/data/NoteService';
+import { NotesService } from 'src/app/data/NotesService';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
-import { DIALOG_POSITIVE_RESPONSE, SAVE_CONFIRMATION_MESSAGE } from 'src/app/Constants';
+import { DIALOG_POSITIVE_RESPONSE, SAVE_CONFIRMATION_MESSAGE } from 'src/app/constants/Constants';
 
 @Component({
   selector: 'app-create',
@@ -20,12 +19,11 @@ export class CreateComponent implements OnInit {
   @Output() showFab = new EventEmitter();
 
   constructor(
-    private noteService: NoteService,
+    private noteService: NotesService,
     private matDialog: MatDialog
   ) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   onSubmit() {
     let message = SAVE_CONFIRMATION_MESSAGE.replace("%s", this.note.title);
@@ -38,7 +36,7 @@ export class CreateComponent implements OnInit {
     });
   }
 
-  addNote() {
+  private addNote() {
     this.noteService.addNote(this.note).subscribe(() => {
       this.showFab.emit(true);
     })
