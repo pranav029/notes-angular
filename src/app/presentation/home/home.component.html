@@ -1,0 +1,2 @@
+<app-create *ngIf="isAddNoteVisible" (showFab)="refresh($event)"></app-create>
+<app-note-card *ngFor="let note of notes" [note]="note" (refreshEvent)="refresh($event)"></app-note-card>
