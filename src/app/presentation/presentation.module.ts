@@ -8,6 +8,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon'
 import { DataModule } from '../data/data.module';
 import { FormsModule } from '@angular/forms';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog'
 
 
 
@@ -15,7 +17,8 @@ import { FormsModule } from '@angular/forms';
   declarations: [
     NoteCardComponent,
     CreateComponent,
-    HomeComponent
+    HomeComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     CommonModule,
@@ -23,9 +26,10 @@ import { FormsModule } from '@angular/forms';
     MatButtonModule,
     MatIconModule,
     DataModule,
-    FormsModule
+    FormsModule,
+    MatDialogModule
   ],
-  exports:[
+  exports: [
     HomeComponent
   ]
 })
