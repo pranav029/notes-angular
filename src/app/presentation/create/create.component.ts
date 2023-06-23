@@ -5,6 +5,7 @@ import { NotesService } from 'src/app/data/NotesService';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 import { DIALOG_POSITIVE_RESPONSE, NOTES_SNACKBAR_DURATION, SAVE_CONFIRMATION_MESSAGE, SAVE_SUCCESS } from 'src/app/constants/Constants';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { delay } from 'rxjs';
 
 @Component({
   selector: 'app-create',
@@ -17,6 +18,7 @@ export class CreateComponent implements OnInit {
     description: ''
   }
 
+  isSaveInProgress = false
   @Output() showFab = new EventEmitter();
 
   constructor(
@@ -42,11 +44,14 @@ export class CreateComponent implements OnInit {
   }
 
   private addNote() {
-    this.noteService.addNote(this.note).subscribe(() => {
-      this.showSaveSuccess();
-      this.showFab.emit(true);
-    })
-
+    this.isSaveInProgress = true
+    setTimeout(() => {
+      this.noteService.addNote(this.note).subscribe(() => {
+        this.isSaveInProgress = false;
+        this.showSaveSuccess();
+        this.showFab.emit(true);
+      })
+    }, 2000)
   }
 
   private getConfirmationMessage() {

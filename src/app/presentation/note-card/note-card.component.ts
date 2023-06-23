@@ -17,6 +17,7 @@ export class NoteCardComponent {
     description: ''
   }
 
+  isDeleteInProgress = false
   @Output() refreshEvent = new EventEmitter();
 
   constructor(
@@ -30,12 +31,18 @@ export class NoteCardComponent {
   }
 
   private delete() {
-    if (this.note.id)
+    if (this.note.id) {
+      this.isDeleteInProgress = true;
       this.noteService.deleteNote(this.note.id).subscribe(() => {
-        console.log("deleted successfully")
-        this.showDeleteSuccess();
-        this.refreshEvent.emit(true)
+        setTimeout(() => {
+          console.log("deleted successfully")
+          this.isDeleteInProgress = false;
+          this.showDeleteSuccess();
+          this.refreshEvent.emit(true)
+        }, 2000)
       })
+    }
+
   }
 
   private confirmDelete() {

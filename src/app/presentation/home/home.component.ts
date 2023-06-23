@@ -9,8 +9,10 @@ import { NotesService } from 'src/app/data/NotesService';
 })
 export class HomeComponent implements OnInit {
   notes: Note[] = [];
+
   @Input() isAddNoteVisible: Boolean = false;
   @Output() toggleFab = new EventEmitter<Boolean>();
+
   constructor(private noteService: NotesService) { }
 
   ngOnInit(): void {
