@@ -12,6 +12,8 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
 import { MatDialogModule } from '@angular/material/dialog'
 import { NotesService } from '../data/NotesService';
 import { NotesServiceImpl } from '../data/NotesServiceImpl';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
 
 
 
@@ -29,7 +31,8 @@ import { NotesServiceImpl } from '../data/NotesServiceImpl';
     MatIconModule,
     DataModule,
     FormsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSnackBarModule
   ],
   exports: [
     HomeComponent

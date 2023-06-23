@@ -9,7 +9,7 @@ import { NotesService } from 'src/app/data/NotesService';
 })
 export class HomeComponent implements OnInit {
   notes: Note[] = [];
-  @Input() isAddNoteVisible:Boolean = false;
+  @Input() isAddNoteVisible: Boolean = false;
   @Output() toggleFab = new EventEmitter<Boolean>();
   constructor(private noteService: NotesService) { }
 
@@ -17,14 +17,14 @@ export class HomeComponent implements OnInit {
     this.fetch()
   }
 
-  fetch(){
+  private fetch() {
     this.noteService.getAllNotes().subscribe((notes) => {
       this.notes = notes;
     });
   }
 
-  refresh(state:Boolean){
-    this.toggleFab.emit(state)
+  refresh(buttonState: Boolean) {
+    this.toggleFab.emit(buttonState)
     this.fetch()
   }
 }

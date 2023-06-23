@@ -3,7 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { Note } from 'src/app/data/Note';
 import { NotesService } from 'src/app/data/NotesService';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
-import { DELETE_CONFIRMATION_MESSAGE, DIALOG_POSITIVE_RESPONSE } from 'src/app/constants/Constants';
+import { DELETE_CONFIRMATION_MESSAGE, DELETE_SUCCESS, DIALOG_POSITIVE_RESPONSE, NOTES_SNACKBAR_DURATION } from 'src/app/constants/Constants';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-note-card',
@@ -20,31 +21,46 @@ export class NoteCardComponent {
 
   constructor(
     private noteService: NotesService,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    private snackbar: MatSnackBar
   ) { }
-
-  private delete() {
-    if (this.note.id)
-      this.noteService.deleteNote(this.note.id).subscribe(() => {
-        console.log("deleted successfully")
-        this.refreshEvent.emit(true)
-      })
-  }
 
   onDeleteClick() {
     this.confirmDelete()
   }
 
-  confirmDelete() {
-    let confirmationMessage: string = DELETE_CONFIRMATION_MESSAGE.replace("%s", this.note.title)
+  private delete() {
+    if (this.note.id)
+      this.noteService.deleteNote(this.note.id).subscribe(() => {
+        console.log("deleted successfully")
+        this.showDeleteSuccess();
+        this.refreshEvent.emit(true)
+      })
+  }
+
+  private confirmDelete() {
 
     let ref = this.matDialog.open(ConfirmationDialogComponent, {
-      data: confirmationMessage
+      data: this.getConfirmationMessage()
     });
 
     ref.afterClosed().subscribe((result) => {
-      if (result == DIALOG_POSITIVE_RESPONSE)
+      if (this.isDialogResponsePositve(result))
         this.delete();
+    });
+  }
+
+  private getConfirmationMessage(): string {
+    return DELETE_CONFIRMATION_MESSAGE.replace("%s", this.note.title)
+  }
+
+  private isDialogResponsePositve(result: string): Boolean {
+    return result == DIALOG_POSITIVE_RESPONSE;
+  }
+
+  private showDeleteSuccess() {
+    this.snackbar.open(DELETE_SUCCESS, "", {
+      duration: NOTES_SNACKBAR_DURATION
     });
   }
 }
