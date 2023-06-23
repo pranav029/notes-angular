@@ -26,6 +26,10 @@ export class CreateComponent implements OnInit {
   ngOnInit(): void { }
 
   onSubmit() {
+    this.confirmSubmit()
+  }
+
+  private confirmSubmit(){
     let message = SAVE_CONFIRMATION_MESSAGE.replace("%s", this.note.title);
     let ref = this.matDialog.open(ConfirmationDialogComponent, {
       data: message

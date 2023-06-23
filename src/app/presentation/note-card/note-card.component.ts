@@ -30,9 +30,14 @@ export class NoteCardComponent {
         this.refreshEvent.emit(true)
       })
   }
+
+  onDeleteClick() {
+    this.confirmDelete()
+  }
+
   confirmDelete() {
     let confirmationMessage: string = DELETE_CONFIRMATION_MESSAGE.replace("%s", this.note.title)
-    
+
     let ref = this.matDialog.open(ConfirmationDialogComponent, {
       data: confirmationMessage
     });
