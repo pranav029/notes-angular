@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Note } from 'src/app/data/models/Note';
 import { NotesService } from 'src/app/data/notes/NotesService';
@@ -13,6 +13,7 @@ import { delay } from 'rxjs';
   styleUrls: ['./create.component.css']
 })
 export class CreateComponent implements OnInit {
+  @Input() paddingTop: string = "0px"
   note: Note = {
     title: '',
     description: ''

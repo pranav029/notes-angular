@@ -4,24 +4,32 @@
     <mat-form-field appearance="outline" style="display: flex;flex-direction: column;">
       <label class="form-label">Enter your email</label>
       <div>
-        <input matInput placeholder="pat@example.com" [(ngModel)]="email" required style="width: 100%;"
+        <input matInput placeholder="pat@example.com" [(ngModel)]="credential.email" required style="width: 100%;"
           class="form-control">
-        <mat-error *ngIf="isMailValid()">{{getMailErrorMessage()}}</mat-error>
+        <p style="color: red;" *ngIf="shouldDisplayEmailError()">{{getEmailErrorMessage()}}</p>
       </div>
     </mat-form-field>
     <mat-form-field appearance="outline" style="display: flex;flex-direction: column;">
       <label class="form-label">Enter your password</label>
       <div style="display: flex;flex-direction: row;">
-        <input matInput [type]="hide ? 'password' : 'text'" style="width: 100%;" class="form-control">
+        <input matInput [type]="hide ? 'password' : 'text'" style="width: 100%;" class="form-control"
+          [(ngModel)]="credential.password">
         <mat-icon matSuffix (click)="hide = !hide" style="align-self:center;margin-left: 8px;">{{hide ? 'visibility_off'
           : 'visibility'}}</mat-icon>
       </div>
+      <p style="color: red;" *ngIf="credential.password.length<1">Password cannot be empty</p>
     </mat-form-field>
     <mat-form-field appearance="outline" style="display: flex;flex-direction: column;">
       <label class="form-label">Confirm your password</label>
-      <input matInput [type]="'text'" style="width: 100%;" class="form-control">
+      <input matInput [type]="'text'" style="width: 100%;" class="form-control" [(ngModel)]="confirmPassword">
+      <p style="color: red;" *ngIf="confirmPassword.length<1 || confirmPassword!=credential.password">
+        {{getConfirmPasswordError()}}</p>
     </mat-form-field>
-    <button mat-flat-button style="width: fit-content;align-self: center;margin-bottom: 16px;" color="primary">Sign
-      Up</button>
+    <label *ngIf="errorMessage.length>0" class="form-label"
+      style="align-self: center;margin-bottom: 16px;color: red;">{{errorMessage}}</label>
+    <button *ngIf="!isSignUpInProgress" class="btn btn-success" [disabled]="!shouldEnableButton()"
+      style="width: fit-content;align-self: center;margin-bottom: 16px;" (click)="onSubmit()">SignUp</button>
+    <mat-spinner *ngIf="isSignUpInProgress" [diameter]="30"
+      style="align-self: center;margin-bottom: 16px;"></mat-spinner>
   </mat-card>
 </div>

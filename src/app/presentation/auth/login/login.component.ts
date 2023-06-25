@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { EMPTY_FIELD_MESSAGE, ERROR_MESSAGE, SHORT_PASSWORD_MESSAGE } from 'src/app/constants/Constants';
 import { Failure, Loading, Success } from 'src/app/data/Resource';
 import { AuthService } from 'src/app/data/auth/AuthService';
+import { NotesAuth } from 'src/app/data/models/Credential';
 
 @Component({
   selector: 'app-login',
@@ -12,21 +14,15 @@ export class LoginComponent {
   errorMessage = ''
   isSignInProgress = false
   hide = true
-  email = ''
-  password = ''
+  credential: NotesAuth.Credential = {
+    email: '',
+    password: ''
+  }
 
   constructor(
     private authService: AuthService,
     private router: Router
   ) { }
-
-  getMailErrorMessage() {
-
-  }
-
-  isMailValid(): Boolean {
-    return false;
-  }
 
   onSignInClick() {
     this.initiateSign()
@@ -37,7 +33,7 @@ export class LoginComponent {
   }
 
   private initiateSign() {
-    this.authService.signIn(this.email, this.password).subscribe((resource) => {
+    this.authService.signIn(this.credential).subscribe((resource) => {
       if (resource instanceof Loading)
         this.isSignInProgress = true;
 
@@ -52,5 +48,27 @@ export class LoginComponent {
         this.errorMessage = resource.message
       }
     })
+  }
+
+  getEmailError() {
+    if (this.credential.email.length < 1) return EMPTY_FIELD_MESSAGE;
+    return ERROR_MESSAGE;
+  }
+
+  shouldShowEmailError() {
+    if (this.credential.email.length < 1) return true;
+    return false;
+  }
+
+  getPasswordError() {
+    if (this.credential.password.length < 1) return EMPTY_FIELD_MESSAGE;
+    if (this.credential.password.length < 8) return SHORT_PASSWORD_MESSAGE;
+    return ERROR_MESSAGE;
+  }
+
+  shouldShowPasswordError() {
+    if (this.credential.password.length < 1) return true;
+    if (this.credential.password.length < 8) return true;
+    return false;
   }
 }

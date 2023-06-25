@@ -3,6 +3,7 @@ import { AuthService } from "./AuthService";
 import { Observable } from "rxjs";
 import { Resource, Loading, Success, Failure } from "../Resource";
 import { Injectable } from "@angular/core";
+import { NotesAuth } from "../models/Credential";
 
 @Injectable({
     providedIn: 'root'
@@ -10,10 +11,10 @@ import { Injectable } from "@angular/core";
 export class AuthServiceImpl extends AuthService {
     auth = getAuth()
 
-    override signUp(email: string, password: string): Observable<Resource<void>> {
+    override signUp(credential: NotesAuth.Credential): Observable<Resource<void>> {
         return new Observable((observer) => {
             observer.next(new Loading())
-            createUserWithEmailAndPassword(this.auth, email, password)
+            createUserWithEmailAndPassword(this.auth, credential.email, credential.password)
                 .then((userCredential) => {
                     observer.next(new Success())
                 })
@@ -29,10 +30,10 @@ export class AuthServiceImpl extends AuthService {
         return this.auth.currentUser != null
     }
 
-    override signIn(email: string, password: string): Observable<Resource<void>> {
+    override signIn(credential: NotesAuth.Credential): Observable<Resource<void>> {
         return new Observable((observer) => {
             observer.next(new Loading())
-            signInWithEmailAndPassword(this.auth, email, password)
+            signInWithEmailAndPassword(this.auth, credential.email, credential.password)
                 .then((userCredential) => {
                     observer.next(new Success())
                 })

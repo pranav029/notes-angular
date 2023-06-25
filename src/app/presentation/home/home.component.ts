@@ -11,8 +11,7 @@ import { NotesServiceImpl } from 'src/app/data/notes/NotesServiceImpl';
 export class HomeComponent implements OnInit {
   notes: Note[] = [];
 
-  @Input() isAddNoteVisible: Boolean = false;
-  @Output() toggleFab = new EventEmitter<Boolean>();
+  isAddNoteVisible: Boolean = true;
 
   constructor(private noteService: NotesService) { }
 
@@ -27,7 +26,11 @@ export class HomeComponent implements OnInit {
   }
 
   refresh(buttonState: Boolean) {
-    this.toggleFab.emit(buttonState)
+    this.isAddNoteVisible = true;
     this.fetch()
+  }
+
+  hideCreateNote(){
+    this.isAddNoteVisible = false;
   }
 }

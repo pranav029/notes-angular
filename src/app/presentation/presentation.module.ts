@@ -19,6 +19,7 @@ import { MatListModule } from '@angular/material/list'
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component'
 import { RouterModule } from '@angular/router';
+import { MatGridListModule } from '@angular/material/grid-list'
 
 
 
@@ -45,7 +46,8 @@ import { RouterModule } from '@angular/router';
     MatFormFieldModule,
     ReactiveFormsModule,
     MatListModule,
-    RouterModule
+    RouterModule,
+    MatGridListModule
   ],
   exports: [
     HomeComponent
