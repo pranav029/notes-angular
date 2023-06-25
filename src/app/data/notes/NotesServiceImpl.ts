@@ -1,8 +1,8 @@
 import { HttpClient } from "@angular/common/http";
-import { Note } from "./Note";
+import { Note } from "../models/Note";
 import { Injectable } from "@angular/core";
 import { NotesService } from "./NotesService";
-import { BASE_URL } from "../constants/Constants";
+import { BASE_URL } from "../../constants/Constants";
 
 export const headers = { 'Content-Type': 'application/json' };
 

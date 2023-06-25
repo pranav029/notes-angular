@@ -1,4 +1,4 @@
-import { Component, Inject, Input } from '@angular/core';
+import { Component, Inject, Input, Optional } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DIALOG_NEGATIVE_RESPONSE, DIALOG_POSITIVE_RESPONSE } from 'src/app/constants/Constants';
 
@@ -9,7 +9,7 @@ import { DIALOG_NEGATIVE_RESPONSE, DIALOG_POSITIVE_RESPONSE } from 'src/app/cons
 })
 export class ConfirmationDialogComponent {
   constructor(
-    public dialogRef: MatDialogRef<ConfirmationDialogComponent>,
+    @Optional() public dialogRef: MatDialogRef<ConfirmationDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public message: string,
   ) { }
 

@@ -9,6 +9,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon'
 import { MatButtonModule } from '@angular/material/button'
 import { HomeComponent } from './presentation/home/home.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -22,8 +23,7 @@ import { HomeComponent } from './presentation/home/home.component';
     PresentationModule,
     MatToolbarModule,
     MatIconModule,
-    MatButtonModule,
-
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

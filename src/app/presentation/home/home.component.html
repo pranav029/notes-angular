@@ -1,2 +1,10 @@
-<app-create *ngIf="isAddNoteVisible" (showFab)="refresh($event)"></app-create>
-<app-note-card *ngFor="let note of notes" [note]="note" (refreshEvent)="refresh($event)"></app-note-card>
+<div style="height:100%;background-color:floralwhite;">
+    <app-create *ngIf="isAddNoteVisible" (showFab)="refresh($event)"></app-create>
+    <mat-list  role="list"
+        style="margin-left: 100px;margin-right: 100px;margin-bottom: 10px;display: flex;flex-direction: column;gap: 20px;"
+        [style.margin-top]="isAddNoteVisible?'50px':'0px'">
+        <div *ngFor="let note of notes" role="listitem">
+            <app-note-card [note]="note" (refreshEvent)="refresh($event)"></app-note-card>
+        </div>
+    </mat-list>
+</div>

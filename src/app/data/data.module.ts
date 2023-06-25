@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { NotesServiceImpl } from './NotesServiceImpl';
-import { NotesService } from './NotesService'
+import { NotesServiceImpl } from './notes/NotesServiceImpl';
+import { NotesService } from './notes/NotesService'
+import { AuthService } from './auth/AuthService';
+import { AuthServiceImpl } from './auth/AuthServiceImpl';
 
 
 
@@ -12,6 +14,9 @@ import { NotesService } from './NotesService'
     CommonModule,
     HttpClientModule
   ],
-  providers: [{ provide: NotesService, useExisting: NotesServiceImpl }]
+  providers: [
+    { provide: NotesService, useExisting: NotesServiceImpl },
+    { provide: AuthService, useClass: AuthServiceImpl }
+  ]
 })
 export class DataModule { }

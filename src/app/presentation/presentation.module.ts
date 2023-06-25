@@ -7,13 +7,18 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon'
 import { DataModule } from '../data/data.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog'
-import { NotesService } from '../data/NotesService';
-import { NotesServiceImpl } from '../data/NotesServiceImpl';
+import { NotesService } from '../data/notes/NotesService';
+import { NotesServiceImpl } from '../data/notes/NotesServiceImpl';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatListModule } from '@angular/material/list'
+import { LoginComponent } from './auth/login/login.component';
+import { SignupComponent } from './auth/signup/signup.component'
+import { RouterModule } from '@angular/router';
 
 
 
@@ -23,7 +28,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
     NoteCardComponent,
     CreateComponent,
     HomeComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     CommonModule,
@@ -34,7 +41,11 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
     FormsModule,
     MatDialogModule,
     MatSnackBarModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatListModule,
+    RouterModule
   ],
   exports: [
     HomeComponent

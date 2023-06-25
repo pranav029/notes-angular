@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Note } from 'src/app/data/Note';
-import { NotesService } from 'src/app/data/NotesService';
+import { Note } from 'src/app/data/models/Note';
+import { NotesService } from 'src/app/data/notes/NotesService';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 import { DELETE_CONFIRMATION_MESSAGE, DELETE_SUCCESS, DIALOG_POSITIVE_RESPONSE, NOTES_SNACKBAR_DURATION } from 'src/app/constants/Constants';
 import { MatSnackBar } from '@angular/material/snack-bar';

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Note } from 'src/app/data/Note';
-import { NotesService } from 'src/app/data/NotesService';
+import { Note } from 'src/app/data/models/Note';
+import { NotesService } from 'src/app/data/notes/NotesService';
+import { NotesServiceImpl } from 'src/app/data/notes/NotesServiceImpl';
 
 @Component({
   selector: 'app-home',
