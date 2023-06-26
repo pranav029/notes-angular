@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { EMPTY_FIELD_MESSAGE, ERROR_MESSAGE, INVALID_EMAIL, PASSWORD_NOT_MATCH } from 'src/app/constants/Constants';
+import { EMPTY_FIELD_MESSAGE, ERROR_MESSAGE, INVALID_EMAIL, MIN_PASSWORD_LENGTH, PASSWORD_NOT_MATCH, SHORT_PASSWORD_MESSAGE } from 'src/app/constants/Constants';
 import { Failure, Loading, Success } from 'src/app/data/Resource';
 import { AuthService } from 'src/app/data/auth/AuthService';
 import { NotesAuth } from 'src/app/data/models/Credential';
+import { CommonUtils } from 'src/app/utils/CommonUtils';
 
 @Component({
   selector: 'app-signup',
@@ -28,13 +29,13 @@ export class SignupComponent {
   getConfirmPasswordError() {
     if (this.confirmPassword.length < 1) return EMPTY_FIELD_MESSAGE;
     if (this.confirmPassword != this.credential.password) return PASSWORD_NOT_MATCH;
+    if (this.confirmPassword.length < MIN_PASSWORD_LENGTH) return SHORT_PASSWORD_MESSAGE;
     return ERROR_MESSAGE;
   }
 
   getEmailErrorMessage() {
     if (this.credential.email.length < 1) return EMPTY_FIELD_MESSAGE;
-    //TODO add email validation
-    // if (true) return INVALID_EMAIL;
+    if (!CommonUtils.isValidEmail(this.credential.email)) return INVALID_EMAIL;
     return ERROR_MESSAGE;
   }
 
@@ -47,12 +48,14 @@ export class SignupComponent {
 
   shouldDisplayEmailError() {
     if (this.credential.email.length < 1) return true;
+    if (!CommonUtils.isValidEmail(this.credential.email)) return true;
     return false;
   }
 
   shouldDisplayConfirmPasswordError() {
     if (this.confirmPassword.length < 1) return true;
     if (this.confirmPassword != this.credential.password) return true;
+    if (this.confirmPassword.length < MIN_PASSWORD_LENGTH) return true;
     return false;
   }
 

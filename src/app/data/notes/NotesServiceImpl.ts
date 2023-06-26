@@ -2,7 +2,6 @@ import { HttpClient } from "@angular/common/http";
 import { Note } from "../models/Note";
 import { Injectable } from "@angular/core";
 import { NotesService } from "./NotesService";
-import { BASE_URL } from "../../constants/Constants";
 import { addDoc, collection, deleteDoc, doc, getDocs, getFirestore, setDoc } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 import { FirebaseConfig } from "../auth/FirebaseConfig";
