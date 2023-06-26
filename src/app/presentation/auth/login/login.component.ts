@@ -53,13 +53,13 @@ export class LoginComponent {
 
   getEmailError() {
     if (this.credential.email.length < 1) return EMPTY_FIELD_MESSAGE;
-    if (CommonUtils.isValidEmail(this.credential.email)) return INVALID_EMAIL;
+    if (!CommonUtils.isValidEmail(this.credential.email)) return INVALID_EMAIL;
     return ERROR_MESSAGE;
   }
 
   shouldShowEmailError() {
     if (this.credential.email.length < 1) return true;
-    if (CommonUtils.isValidEmail(this.credential.email)) return true;
+    if (!CommonUtils.isValidEmail(this.credential.email)) return true;
     return false;
   }
 
