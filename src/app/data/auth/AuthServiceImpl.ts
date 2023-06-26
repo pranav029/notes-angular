@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, browserSessionPersistence, setPersistence } from "firebase/auth";
 import { AuthService } from "./AuthService";
 import { Observable } from "rxjs";
 import { Resource, Loading, Success, Failure } from "../Resource";
@@ -14,9 +14,12 @@ export class AuthServiceImpl extends AuthService {
     override signUp(credential: NotesAuth.Credential): Observable<Resource<void>> {
         return new Observable((observer) => {
             observer.next(new Loading())
-            createUserWithEmailAndPassword(this.auth, credential.email, credential.password)
-                .then((userCredential) => {
-                    observer.next(new Success())
+            setPersistence(this.auth, browserSessionPersistence)
+                .then(() => {
+                    return createUserWithEmailAndPassword(this.auth, credential.email, credential.password)
+                        .then((userCredential) => {
+                            observer.next(new Success())
+                        })
                 })
                 .catch((error) => {
                     const errorCode = error.code;

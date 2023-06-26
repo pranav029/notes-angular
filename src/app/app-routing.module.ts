@@ -6,9 +6,9 @@ import { AuthGuard, DeactivateLogin, DeactivateSignUp } from './presentation/aut
 import { SignupComponent } from './presentation/auth/signup/signup.component';
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent },
-  { path: 'login', component: LoginComponent, canDeactivate: [DeactivateLogin] },
-  { path: 'signup', component: SignupComponent, canDeactivate: [DeactivateSignUp] },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'login', component: LoginComponent,  },
+  { path: 'signup', component: SignupComponent, },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 

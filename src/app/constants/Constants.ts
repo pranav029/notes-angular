@@ -11,4 +11,5 @@ export const PASSWORD_NOT_MATCH = "Confirm password does not match"
 export const INVALID_EMAIL = "Invalid email"
 export const SHORT_PASSWORD_MESSAGE = "Password should be of atleast 8 characters"
 export const MIN_PASSWORD_LENGTH = 8
+export const SIGN_OUT_CONFIRMATION = "You will be signed out of this session"
 export const BASE_URL = 'http://localhost:3000/notes'

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { EMPTY_FIELD_MESSAGE, ERROR_MESSAGE, SHORT_PASSWORD_MESSAGE } from 'src/app/constants/Constants';
 import { Failure, Loading, Success } from 'src/app/data/Resource';

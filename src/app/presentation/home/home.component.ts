@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Failure, Loading, Success } from 'src/app/data/Resource';
 import { Note } from 'src/app/data/models/Note';
 import { NotesService } from 'src/app/data/notes/NotesService';
 import { NotesServiceImpl } from 'src/app/data/notes/NotesServiceImpl';
@@ -10,6 +11,8 @@ import { NotesServiceImpl } from 'src/app/data/notes/NotesServiceImpl';
 })
 export class HomeComponent implements OnInit {
   notes: Note[] = [];
+  isFetchInProgress = false;
+  errorMessage = ''
 
   isAddNoteVisible: Boolean = true;
 
@@ -20,8 +23,18 @@ export class HomeComponent implements OnInit {
   }
 
   private fetch() {
-    this.noteService.getAllNotes().subscribe((notes) => {
-      this.notes = notes;
+    this.noteService.getAllNotes().subscribe((resource) => {
+      if (resource instanceof Loading)
+        this.isFetchInProgress = true;
+      if (resource instanceof Success) {
+        this.notes = resource.data
+        this.isFetchInProgress = false;
+        this.errorMessage = ''
+      }
+      if (resource instanceof Failure) {
+        this.isFetchInProgress = false;
+        this.errorMessage = resource.message
+      }
     });
   }
 
@@ -30,7 +43,7 @@ export class HomeComponent implements OnInit {
     this.fetch()
   }
 
-  hideCreateNote(){
+  hideCreateNote() {
     this.isAddNoteVisible = false;
   }
 }

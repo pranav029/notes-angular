@@ -5,6 +5,7 @@ import { NotesService } from 'src/app/data/notes/NotesService';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 import { DELETE_CONFIRMATION_MESSAGE, DELETE_SUCCESS, DIALOG_POSITIVE_RESPONSE, NOTES_SNACKBAR_DURATION } from 'src/app/constants/Constants';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Failure, Loading, Success } from 'src/app/data/Resource';
 
 @Component({
   selector: 'app-note-card',
@@ -32,14 +33,20 @@ export class NoteCardComponent {
 
   private delete() {
     if (this.note.id) {
-      this.isDeleteInProgress = true;
-      this.noteService.deleteNote(this.note.id).subscribe(() => {
-        setTimeout(() => {
-          console.log("deleted successfully")
+      this.noteService.deleteNote(this.note.id).subscribe((resource) => {
+        if (resource instanceof Loading)
+          this.isDeleteInProgress = true;
+        if (resource instanceof Success) {
           this.isDeleteInProgress = false;
           this.showDeleteSuccess();
           this.refreshEvent.emit(true)
-        }, 2000)
+        }
+        if (resource instanceof Failure) {
+          this.isDeleteInProgress = false;
+          this.showDeleteFailure(resource.message);
+          this.refreshEvent.emit(true)
+        }
+
       })
     }
 
@@ -67,6 +74,12 @@ export class NoteCardComponent {
 
   private showDeleteSuccess() {
     this.snackbar.open(DELETE_SUCCESS, "", {
+      duration: NOTES_SNACKBAR_DURATION
+    });
+  }
+
+  private showDeleteFailure(error: string) {
+    this.snackbar.open(error, "", {
       duration: NOTES_SNACKBAR_DURATION
     });
   }
